@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IECEN Premium HR Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top left,#3a2800 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#3a2800 0%,transparent 25%),
+    linear-gradient(135deg,#000000,#0a0a0a,#141414);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+}
+
+/* GOLD GRID */
+
+body::before{
+
+    content:'';
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(#d4af37 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    opacity:0.05;
+
+    pointer-events:none;
+}
+
+/* GLOW EFFECT */
+
+body::after{
+
+    content:'';
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:
+    radial-gradient(circle,
+    rgba(212,175,55,0.10),
+    transparent 70%);
+
+    top:-120px;
+    right:-120px;
+
+    animation:floatGlow 8s ease-in-out infinite;
+
+    pointer-events:none;
+}
+
+@keyframes floatGlow{
+
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(30px);
+    }
+}
+
+/* =====================================================
+   STARS
+===================================================== */
+
+.stars{
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    top:0;
+    left:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+}
+
+.star{
+
+    position:absolute;
+
+    background:#d4af37;
+
+    border-radius:50%;
+
+    animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:0.1;
+        transform:scale(0.5);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+    }
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+
+    width:280px;
+
+    height:100vh;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    background:
+    rgba(10,10,10,0.96);
+
+    border-right:
+    1px solid rgba(212,175,55,0.12);
+
+    padding:30px 22px;
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    z-index:999;
+
+    box-shadow:
+    8px 0 30px rgba(0,0,0,0.35);
+}
+
+.sidebar::before{
+
+    content:'';
+
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:1px;
+    height:100%;
+
+    background:
+    linear-gradient(to bottom,
+    transparent,
+    rgba(212,175,55,0.3),
+    transparent);
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+.logo h1{
+
+    font-size:48px;
+
+    font-weight:800;
+
+    letter-spacing:4px;
+
+    background:
+    linear-gradient(to right,
+    #d4af37,
+    #fff2b8,
+    #d4af37);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:goldPulse 4s infinite ease-in-out;
+}
+
+.logo p{
+
+    color:#d4af37;
+
+    margin-top:8px;
+
+    letter-spacing:2px;
+
+    font-size:13px;
+}
+
+@keyframes goldPulse{
+
+    0%,100%{
+
+        filter:
+        drop-shadow(0 0 4px rgba(212,175,55,0.2));
+    }
+
+    50%{
+
+        filter:
+        drop-shadow(0 0 12px rgba(212,175,55,0.5));
+    }
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:#d8c27a;
+
+    padding:16px 18px;
+
+    border-radius:18px;
+
+    transition:0.35s ease;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:
+    1px solid transparent;
+}
+
+.menu a i{
+
+    width:22px;
+
+    text-align:center;
+
+    font-size:18px;
+
+    transition:0.3s ease;
+}
+
+.menu a::before{
+
+    content:'';
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:0%;
+    height:100%;
+
+    background:
+    linear-gradient(135deg,
+    rgba(212,175,55,0.15),
+    rgba(255,255,255,0.02));
+
+    transition:0.35s;
+}
+
+.menu a:hover::before,
+.menu a.active::before{
+
+    width:100%;
+}
+
+.menu a:hover,
+.menu a.active{
+
+    color:#fff;
+
+    transform:translateX(6px);
+
+    border:
+    1px solid rgba(212,175,55,0.15);
+
+    box-shadow:
+    0 10px 25px rgba(212,175,55,0.08);
+}
+
+.menu a:hover i{
+
+    transform:scale(1.15);
+}
+
+.menu a span{
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    margin-left:280px;
+
+    padding:35px;
+}
+
+/* =====================================================
+   TOPBAR
+===================================================== */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    padding-bottom:15px;
+
+    border-bottom:
+    1px solid rgba(212,175,55,0.08);
+}
+
+.topbar h2{
+
+    color:#fff2b8;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    position:relative;
+}
+
+.topbar h2::after{
+
+    content:'';
+
+    position:absolute;
+
+    left:0;
+    bottom:-10px;
+
+    width:80px;
+    height:3px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(to right,
+    #d4af37,
+    transparent);
+}
+
+/* =====================================================
+   ADMIN BOX
+===================================================== */
+
+.admin-box{
+
+    padding:12px 20px;
+
+    border-radius:14px;
+
+    background:
+    rgba(255,255,255,0.03);
+
+    border:
+    1px solid rgba(212,175,55,0.12);
+
+    color:#d4af37;
+
+    position:relative;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(18px);
+}
+
+.admin-box::before{
+
+    content:'';
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.08),
+    transparent);
+
+    animation:shine 4s infinite;
+}
+
+@keyframes shine{
+
+    100%{
+        left:120%;
+    }
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+}
+
+.card{
+
+    background:
+    rgba(15,15,15,0.92);
+
+    border:
+    1px solid rgba(212,175,55,0.12);
+
+    border-radius:28px;
+
+    padding:28px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(18px);
+}
+
+.card::before{
+
+    content:'';
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    background:
+    radial-gradient(circle,
+    rgba(212,175,55,0.12),
+    transparent 70%);
+
+    top:-60px;
+    right:-60px;
+}
+
+.card:hover{
+
+    transform:
+    translateY(-8px)
+    scale(1.02);
+
+    box-shadow:
+    0 18px 35px rgba(212,175,55,0.12);
+}
+
+.card h1{
+
+    color:#fff2b8;
+
+    font-size:44px;
+
+    margin-bottom:10px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.card p{
+
+    color:#d4af37;
+
+    font-size:15px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-box{
+
+    background:
+    rgba(15,15,15,0.94);
+
+    border:
+    1px solid rgba(212,175,55,0.12);
+
+    border-radius:28px;
+
+    padding:30px;
+
+    overflow:auto;
+
+    position:relative;
+
+    backdrop-filter:blur(18px);
+}
+
+.table-box::before{
+
+    content:'';
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:1px;
+
+    background:
+    linear-gradient(to right,
+    transparent,
+    rgba(212,175,55,0.4),
+    transparent);
+}
+
+.table-title{
+
+    color:#fff2b8;
+
+    margin-bottom:25px;
+
+    font-size:24px;
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:850px;
+}
+
+table th{
+
+    color:#f5df95;
+
+    padding:20px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    border-bottom:
+    1px solid rgba(212,175,55,0.12);
+}
+
+table td{
+
+    padding:20px;
+
+    color:#e6d6a0;
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.04);
+
+    vertical-align:middle;
+}
+
+table tbody tr{
+
+    transition:0.3s ease;
+}
+
+table tbody tr:hover{
+
+    transform:scale(1.005);
+
+    background:
+    linear-gradient(90deg,
+    rgba(212,175,55,0.05),
+    rgba(255,255,255,0.01));
+}
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 16px;
+
+    border-radius:40px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    letter-spacing:0.4px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.status::after{
+
+    content:'';
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    top:0;
+    left:-120%;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent);
+
+    animation:badgeShine 3s infinite;
+}
+
+@keyframes badgeShine{
+
+    100%{
+        left:120%;
+    }
+}
+
+.approved{
+
+    background:
+    linear-gradient(135deg,
+    rgba(39,174,96,0.2),
+    rgba(46,204,113,0.12));
+
+    border:
+    1px solid rgba(46,204,113,0.25);
+
+    color:#2ecc71;
+
+    box-shadow:
+    0 0 15px rgba(46,204,113,0.12);
+}
+
+.approved::before{
+
+    content:'';
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#2ecc71;
+
+    box-shadow:
+    0 0 10px #2ecc71;
+}
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.action-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+.action-btn{
+
+    min-width:95px;
+
+    padding:11px 16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    transition:0.3s ease;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    white-space:nowrap;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.action-btn::before{
+
+    content:'';
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.18),
+    transparent);
+
+    transition:0.5s;
+}
+
+.action-btn:hover::before{
+
+    left:120%;
+}
+
+.action-btn:hover{
+
+    transform:
+    translateY(-3px)
+    scale(1.03);
+}
+
+/* VIEW */
+
+.view-btn{
+
+    background:
+    linear-gradient(135deg,
+    #d4af37,
+    #f7e7a1);
+
+    color:#000;
+
+    box-shadow:
+    0 8px 20px rgba(212,175,55,0.18);
+}
+
+/* DELETE */
+
+.delete-btn{
+
+    background:
+    linear-gradient(135deg,
+    #d63031,
+    #ff4d4f);
+
+    color:#fff;
+
+    box-shadow:
+    0 8px 20px rgba(255,77,79,0.12);
+}
+
+/* =====================================================
+   CUSTOM SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+    height:10px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#0f0f0f;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:
+    linear-gradient(
+    #d4af37,
+    #8a6a16);
+
+    border-radius:20px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:992px){
+
+    .sidebar{
+
+        width:85px;
+
+        padding:25px 12px;
+    }
+
+    .logo h1{
+
+        font-size:28px;
+    }
+
+    .logo p{
+
+        display:none;
+    }
+
+    .menu a{
+
+        justify-content:center;
+
+        padding:16px;
+    }
+
+    .menu a span{
+
+        display:none;
+    }
+
+    .main{
+
+        margin-left:85px;
+
+        padding:25px;
+    }
+}
+
+@media(max-width:768px){
+
+    .main{
+
+        margin-left:0;
+
+        padding:20px;
+    }
+
+    .sidebar{
+
+        position:relative;
+
+        width:100%;
+
+        height:auto;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:space-between;
+
+        flex-wrap:wrap;
+
+        padding:20px;
+    }
+
+    .menu{
+
+        flex-direction:row;
+
+        flex-wrap:wrap;
+
+        width:100%;
+
+        margin-top:20px;
+    }
+
+    .menu a{
+
+        flex:1;
+    }
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .topbar h2{
+
+        font-size:28px;
+    }
+
+    .admin-box{
+
+        width:100%;
+    }
+
+    .cards{
+
+        grid-template-columns:1fr;
+    }
+
+    table{
+
+        min-width:700px;
+    }
+}
+
+@media(max-width:520px){
+
+    .sidebar{
+
+        padding:18px;
+    }
+
+    .menu{
+
+        gap:10px;
+    }
+
+    .menu a{
+
+        font-size:13px;
+
+        padding:14px;
+    }
+
+    .topbar h2{
+
+        font-size:22px;
+    }
+
+    .card h1{
+
+        font-size:32px;
+    }
+
+    .table-title{
+
+        font-size:20px;
+    }
+
+    table th,
+    table td{
+
+        padding:16px;
+    }
+
+    .action-buttons{
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .action-btn{
+
+        width:100%;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- STARS -->
+
+<div class="stars"></div>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h1>IECEN</h1>
+
+        <p>PREMIUM HR PANEL</p>
+
+    </div>
+
+    <div class="menu">
+
+        <a href="#" class="active">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>Dashboard</span>
+
+        </a>
+
+        <a href="#">
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>Employees</span>
+
+        </a>
+
+        <a href="#">
+
+            <i class="fa-solid fa-folder-open"></i>
+
+            <span>Documents</span>
+
+        </a>
+
+        <a href="#">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <h2>HR Employee Dashboard</h2>
+
+        <div class="admin-box">
+
+            Welcome Admin 👋
+
+        </div>
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h1>124</h1>
+
+            <p>Total Employees</p>
+
+        </div>
+
+        <div class="card">
+
+            <h1>109</h1>
+
+            <p>Approved Profiles</p>
+
+        </div>
+
+        <div class="card">
+
+            <h1>15</h1>
+
+            <p>Pending Verifications</p>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-box">
+
+        <h2 class="table-title">
+
+            Registered Employees
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee Code</th>
+                    <th>Full Name</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>IECEN-001</td>
+
+                    <td>Mohd Ayaan</td>
+
+                    <td>IT Department</td>
+
+                    <td>Software Intern</td>
+
+                    <td>
+
+                        <span class="status approved">
+
+                            Approved
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <div class="action-buttons">
+
+                            <button
+                            class="action-btn view-btn">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View
+
+                            </button>
+
+                            <button
+                            class="action-btn delete-btn">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>IECEN-002</td>
+
+                    <td>Rahul Sharma</td>
+
+                    <td>HR Department</td>
+
+                    <td>HR Executive</td>
+
+                    <td>
+
+                        <span class="status approved">
+
+                            Approved
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <div class="action-buttons">
+
+                            <button
+                            class="action-btn view-btn">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View
+
+                            </button>
+
+                            <button
+                            class="action-btn delete-btn">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     STARS SCRIPT
+===================================================== -->
+
+<script>
+
+const starsContainer =
+document.querySelector('.stars');
+
+for(let i=0;i<100;i++){
+
+    const star =
+    document.createElement('div');
+
+    star.className = 'star';
+
+    star.style.width =
+    star.style.height =
+    Math.random()*3 + 'px';
+
+    star.style.top =
+    Math.random()*100 + '%';
+
+    star.style.left =
+    Math.random()*100 + '%';
+
+    star.style.animationDuration =
+    (Math.random()*3 + 2) + 's';
+
+    starsContainer.appendChild(star);
+}
+
+</script>
+
+</body>
+</html>
