@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IECEN Candidate Details Form</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:
+    radial-gradient(circle at top left,#2a1c00 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#3d2c00 0%,transparent 25%),
+    linear-gradient(135deg,#000000,#0f0f0f,#141414);
+
+    min-height:100vh;
+    padding:40px 15px;
+    overflow-x:hidden;
+    position:relative;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(#d4af37 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    opacity:0.08;
+
+    pointer-events:none;
+}
+
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    border-radius:50%;
+    background:#d4af37;
+    animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:0.1;
+        transform:scale(0.5);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+
+        box-shadow:
+        0 0 10px #d4af37,
+        0 0 20px #f7d774;
+    }
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+
+.form-box{
+
+    background:rgba(15,15,15,0.92);
+
+    border:1px solid rgba(212,175,55,0.25);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:0 0 40px rgba(0,0,0,0.8);
+
+    backdrop-filter:blur(12px);
+
+    animation:fadeIn 1s ease;
+
+    position:relative;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.logo h1{
+
+    font-size:52px;
+    font-weight:800;
+    letter-spacing:4px;
+
+    background:
+    linear-gradient(to right,
+    #d4af37,
+    #fff0b0,
+    #d4af37);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.logo p{
+    color:#d8c27a;
+    margin-top:5px;
+}
+
+.section-title{
+
+    color:#d4af37;
+
+    margin-top:40px;
+    margin-bottom:22px;
+
+    font-size:23px;
+
+    border-bottom:1px solid rgba(212,175,55,0.25);
+
+    padding-bottom:10px;
+
+    position:relative;
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:22px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+
+    color:#f5e7b2;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+}
+
+.input-group input,
+.input-group select{
+
+    padding:15px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(212,175,55,0.18);
+
+    background:rgba(255,255,255,0.03);
+
+    color:#fff;
+
+    outline:none;
+
+    transition:0.4s;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+
+    border:1px solid #d4af37;
+
+    box-shadow:
+    0 0 8px rgba(212,175,55,0.4);
+}
+
+.checklist{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:18px;
+}
+
+.document-item{
+
+    padding:18px;
+
+    border-radius:14px;
+
+    border:1px dashed rgba(212,175,55,0.3);
+
+    background:rgba(255,255,255,0.03);
+
+    cursor:pointer;
+
+    text-align:center;
+
+    transition:0.4s;
+}
+
+.document-item.active{
+
+    background:#d4af37;
+
+    color:#000;
+
+    border-style:solid;
+}
+
+.document-item span{
+
+    color:#f3e6bc;
+
+    font-size:14px;
+}
+
+.document-item.active span{
+
+    color:#000;
+
+    font-weight:600;
+}
+
+.submit-btn{
+
+    width:100%;
+
+    padding:18px;
+
+    margin-top:45px;
+
+    border-radius:18px;
+
+    border:none;
+
+    background:
+    linear-gradient(135deg,
+    #f7e7a1,
+    #d4af37);
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+}
+
+.success-box{
+
+    display:none;
+
+    text-align:center;
+
+    padding:100px 20px;
+
+    animation:fadeIn 0.8s ease;
+}
+
+.tick{
+
+    width:100px;
+    height:100px;
+
+    background:#d4af37;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:auto;
+
+    font-size:50px;
+}
+
+.loader{
+
+    width:18px;
+    height:18px;
+
+    border:3px solid rgba(0,0,0,0.2);
+
+    border-top:3px solid #000;
+
+    border-radius:50%;
+
+    animation:spin 0.8s linear infinite;
+}
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="container">
+
+    <div class="form-box" id="formContainer">
+
+        <div class="logo">
+            <h1>IECEN</h1>
+            <p>Candidate Details Form</p>
+        </div>
+
+        <form id="employeeForm">
+
+            <h2 class="section-title">
+                🔹 Personal Information
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Full Name</label>
+
+                    <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Enter Full Name"
+                    required>
+                </div>
+
+                <div class="input-group">
+                    <label>Date of Birth</label>
+
+                    <input
+                    type="date"
+                    name="dob"
+                    required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+
+                    <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter Email Address"
+                    required>
+                </div>
+
+                <div class="input-group">
+                    <label>Mobile Number</label>
+
+                    <input
+                    type="tel"
+                    name="mobile"
+                    placeholder="Enter Mobile Number"
+                    required>
+                </div>
+
+            </div>
+
+            <h2 class="section-title">
+                🔹 Professional Details
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Department</label>
+
+                    <input
+                    type="text"
+                    name="department"
+                    placeholder="e.g. IT, Sales">
+                </div>
+
+                <div class="input-group">
+                    <label>Designation</label>
+
+                    <input
+                    type="text"
+                    name="designation"
+                    placeholder="e.g. Software Intern">
+                </div>
+
+                <div class="input-group">
+                    <label>Date of Joining</label>
+
+                    <input
+                    type="date"
+                    name="joining_date">
+                </div>
+
+                <div class="input-group">
+                    <label>Work Location</label>
+
+                    <select name="work_location">
+
+                        <option value="Remote">
+                            Remote
+                        </option>
+
+                        <option value="Office">
+                            Office
+                        </option>
+
+                        <option value="Hybrid">
+                            Hybrid
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+            <h2 class="section-title">
+                🔹 Upload Documents
+            </h2>
+
+            <div class="checklist">
+
+                <label class="document-item">
+
+                    <input
+                    type="file"
+                    name="resume"
+                    hidden>
+
+                    <span>
+                        📄 Upload Resume
+                    </span>
+
+                </label>
+
+                <label class="document-item">
+
+                    <input
+                    type="file"
+                    name="aadhaar"
+                    hidden>
+
+                    <span>
+                        🪪 Upload Aadhaar
+                    </span>
+
+                </label>
+
+                <label class="document-item">
+
+                    <input
+                    type="file"
+                    name="pan"
+                    hidden>
+
+                    <span>
+                        💳 Upload PAN Card
+                    </span>
+
+                </label>
+
+                <label class="document-item">
+
+                    <input
+                    type="file"
+                    name="photo"
+                    hidden>
+
+                    <span>
+                        📸 Upload Photograph
+                    </span>
+
+                </label>
+
+            </div>
+
+            <button
+            type="submit"
+            class="submit-btn">
+
+                SUBMIT FORM
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="success-box" id="successBox">
+
+        <div class="tick">
+            ✔
+        </div>
+
+        <h2 style="
+        color:#f7e7a1;
+        margin-top:20px;">
+
+            Thank You!
+
+        </h2>
+
+        <p style="color:#c9b26b;">
+
+            Your application has been submitted successfully.
+
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   STARS ANIMATION
+========================= */
+
+const starsContainer =
+document.querySelector('.stars');
+
+for(let i=0; i<80; i++){
+
+    const star =
+    document.createElement('div');
+
+    star.className = 'star';
+
+    star.style.width =
+    star.style.height =
+    Math.random()*3 + 'px';
+
+    star.style.top =
+    Math.random()*100 + '%';
+
+    star.style.left =
+    Math.random()*100 + '%';
+
+    star.style.animationDuration =
+    (Math.random()*3 + 2) + 's';
+
+    starsContainer.appendChild(star);
+}
+
+/* =========================
+   FILE UPLOAD UI
+========================= */
+
+document
+.querySelectorAll('.document-item input')
+
+.forEach(input => {
+
+    input.addEventListener('change', function(){
+
+        const label =
+        this.parentElement;
+
+        if(this.files.length > 0){
+
+            label.classList.add('active');
+
+            label.querySelector('span').innerText =
+            "✔ " + this.files[0].name;
+        }
+
+    });
+
+});
+
+/* =========================
+   ALERT FUNCTION
+========================= */
+
+function showAlert(message, type="success"){
+
+    const alertBox =
+    document.createElement("div");
+
+    alertBox.innerText = message;
+
+    alertBox.style.position = "fixed";
+    alertBox.style.top = "30px";
+    alertBox.style.right = "30px";
+
+    alertBox.style.padding = "16px 25px";
+
+    alertBox.style.borderRadius = "14px";
+
+    alertBox.style.fontWeight = "600";
+
+    alertBox.style.zIndex = "9999";
+
+    alertBox.style.color = "#fff";
+
+    alertBox.style.boxShadow =
+    "0 10px 30px rgba(0,0,0,0.4)";
+
+    if(type === "success"){
+
+        alertBox.style.background =
+        "linear-gradient(135deg,#1fae4b,#28d76a)";
+    }
+
+    else{
+
+        alertBox.style.background =
+        "linear-gradient(135deg,#d63031,#ff4d4f)";
+    }
+
+    document.body.appendChild(alertBox);
+
+    setTimeout(() => {
+
+        alertBox.remove();
+
+    }, 3500);
+}
+
+/* =========================
+   FORM SUBMIT API
+========================= */
+
+const form =
+document.getElementById("employeeForm");
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const submitBtn =
+    document.querySelector('.submit-btn');
+
+    const originalText =
+    submitBtn.innerHTML;
+
+    submitBtn.disabled = true;
+
+    submitBtn.innerHTML = `
+
+    <span style="
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    ">
+
+        <span class="loader"></span>
+
+        Submitting...
+
+    </span>
+    `;
+
+    const formData =
+    new FormData(form);
+
+    try{
+
+        const response = await fetch(
+
+            "http://127.0.0.1:5000/intern/register",
+
+            {
+                method:"POST",
+                body:formData
+            }
+
+        );
+
+        const result =
+        await response.json();
+
+        if(response.ok && result.success){
+
+            showAlert(
+                "Application Submitted Successfully ✅",
+                "success"
+            );
+
+            setTimeout(() => {
+
+                document
+                .getElementById("formContainer")
+                .style.display = "none";
+
+                document
+                .getElementById("successBox")
+                .style.display = "block";
+
+                window.scrollTo({
+
+                    top:0,
+                    behavior:"smooth"
+
+                });
+
+            },1000);
+
+        }
+
+        else{
+
+            showAlert(
+
+                result.message ||
+                "Submission Failed ❌",
+
+                "error"
+            );
+
+            submitBtn.disabled = false;
+
+            submitBtn.innerHTML =
+            originalText;
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showAlert(
+            "Backend Server Not Responding 🚨",
+            "error"
+        );
+
+        submitBtn.disabled = false;
+
+        submitBtn.innerHTML =
+        originalText;
+    }
+
+});
+
+</script>
+
+</body>
+</html>
