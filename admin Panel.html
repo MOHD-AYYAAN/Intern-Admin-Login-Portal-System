@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IECEN Premium Admin Portal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top left,#3a2800 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#3a2800 0%,transparent 25%),
+    linear-gradient(135deg,#000000,#0a0a0a,#141414);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+}
+
+body::before{
+
+    content:'';
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(#d4af37 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    opacity:0.07;
+
+    pointer-events:none;
+}
+
+/* =========================
+   STARS
+========================= */
+
+.stars{
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    top:0;
+    left:0;
+
+    pointer-events:none;
+}
+
+.star{
+
+    position:absolute;
+
+    background:#d4af37;
+
+    border-radius:50%;
+
+    animation:twinkle linear infinite;
+}
+
+@keyframes twinkle{
+
+    0%,100%{
+        opacity:0.2;
+        transform:scale(0.5);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.5);
+    }
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
+.login-page{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.login-box{
+
+    width:100%;
+    max-width:450px;
+
+    background:
+    rgba(15,15,15,0.95);
+
+    border:
+    1px solid rgba(212,175,55,0.2);
+
+    border-radius:30px;
+
+    padding:45px;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 50px rgba(0,0,0,0.8);
+
+    animation:fadeIn 1s ease;
+}
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:35px;
+}
+
+.logo h1{
+
+    font-size:52px;
+
+    font-weight:800;
+
+    letter-spacing:5px;
+
+    background:
+    linear-gradient(to right,
+    #d4af37,
+    #fff2b8,
+    #d4af37);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.logo p{
+
+    color:#d4af37;
+
+    margin-top:8px;
+
+    letter-spacing:2px;
+
+    font-size:13px;
+}
+
+.input-group{
+
+    margin-bottom:25px;
+}
+
+.input-group label{
+
+    display:block;
+
+    color:#f7e7a1;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+}
+
+.input-group input{
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    border:
+    1px solid rgba(212,175,55,0.18);
+
+    background:
+    rgba(255,255,255,0.03);
+
+    color:#fff;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+.input-group input:focus{
+
+    border:
+    1px solid #d4af37;
+
+    box-shadow:
+    0 0 12px rgba(212,175,55,0.25);
+}
+
+.login-btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(135deg,
+    #f7e7a1,
+    #d4af37);
+
+    color:#000;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 20px rgba(212,175,55,0.25);
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+
+    display:none;
+}
+
+.sidebar{
+
+    width:280px;
+
+    height:100vh;
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    background:
+    rgba(10,10,10,0.96);
+
+    border-right:
+    1px solid rgba(212,175,55,0.15);
+
+    padding:30px;
+
+    backdrop-filter:blur(12px);
+}
+
+.menu{
+
+    margin-top:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:#d8c27a;
+
+    padding:16px 18px;
+
+    border-radius:14px;
+
+    transition:0.3s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.menu a:hover,
+.menu a.active{
+
+    background:
+    linear-gradient(135deg,
+    rgba(212,175,55,0.15),
+    rgba(255,255,255,0.03));
+
+    color:#fff;
+
+    transform:translateX(5px);
+}
+
+.main{
+
+    margin-left:280px;
+
+    padding:35px;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+}
+
+.topbar h2{
+
+    color:#fff2b8;
+
+    font-size:30px;
+}
+
+.admin-box{
+
+    color:#d4af37;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+}
+
+.card{
+
+    background:
+    rgba(15,15,15,0.92);
+
+    border:
+    1px solid rgba(212,175,55,0.12);
+
+    border-radius:24px;
+
+    padding:28px;
+
+    transition:0.4s;
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 0 25px rgba(212,175,55,0.15);
+}
+
+.card h1{
+
+    color:#fff2b8;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.card p{
+
+    color:#d4af37;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+
+    background:
+    rgba(15,15,15,0.94);
+
+    border:
+    1px solid rgba(212,175,55,0.15);
+
+    border-radius:28px;
+
+    padding:30px;
+
+    overflow-x:auto;
+}
+
+.table-title{
+
+    color:#fff2b8;
+
+    margin-bottom:25px;
+
+    font-size:24px;
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+table th{
+
+    color:#f5df95;
+
+    padding:18px;
+
+    text-align:left;
+
+    border-bottom:
+    1px solid rgba(212,175,55,0.12);
+}
+
+table td{
+
+    padding:18px;
+
+    color:#e6d6a0;
+
+    border-bottom:
+    1px solid rgba(255,255,255,0.04);
+}
+
+table tr:hover{
+
+    background:
+    rgba(212,175,55,0.04);
+}
+
+.status{
+
+    padding:8px 14px;
+
+    border-radius:40px;
+
+    font-size:12px;
+
+    font-weight:600;
+}
+
+.approved{
+
+    background:
+    rgba(39,174,96,0.18);
+
+    color:#2ecc71;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.action-btn{
+
+    padding:10px 16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-right:8px;
+}
+
+.view-btn{
+
+    background:
+    linear-gradient(135deg,
+    #d4af37,
+    #f7e7a1);
+
+    color:#000;
+}
+
+.delete-btn{
+
+    background:
+    linear-gradient(135deg,
+    #d63031,
+    #ff4d4f);
+
+    color:#fff;
+}
+
+.loader{
+
+    width:18px;
+    height:18px;
+
+    border:3px solid rgba(0,0,0,0.2);
+
+    border-top:3px solid #000;
+
+    border-radius:50%;
+
+    animation:spin 0.8s linear infinite;
+
+    margin:auto;
+}
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- =========================
+     LOGIN PAGE
+========================= -->
+
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">
+
+            <h1>IECEN</h1>
+
+            <p>PREMIUM ADMIN LOGIN</p>
+
+        </div>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <label>Email Address</label>
+
+                <input
+                type="email"
+                id="email"
+                placeholder="Enter Admin Email"
+                required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                required>
+
+            </div>
+
+            <button
+            type="submit"
+            class="login-btn"
+            id="loginBtn">
+
+                LOGIN TO DASHBOARD
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<div class="dashboard" id="dashboard">
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h1 style="font-size:38px;">IECEN</h1>
+
+            <p>ADMIN PANEL</p>
+
+        </div>
+
+        <div class="menu">
+
+            <a href="#" class="active">
+                📊 Dashboard
+            </a>
+
+            <a href="#">
+                👨‍💼 Interns
+            </a>
+
+            <a href="#">
+                📁 Documents
+            </a>
+
+            <a href="#">
+                ⚙ Settings
+            </a>
+
+            <a href="#" id="logoutBtn">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h2>Admin Dashboard</h2>
+
+            <div class="admin-box">
+                Welcome Admin
+            </div>
+
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h1 id="totalInterns">0</h1>
+
+                <p>Total Interns</p>
+
+            </div>
+
+            <div class="card">
+
+                <h1 id="approvedInterns">0</h1>
+
+                <p>Approved Profiles</p>
+
+            </div>
+
+        </div>
+
+        <div class="table-box">
+
+            <h2 class="table-title">
+                Registered Interns
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="internTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+/* =========================
+   ALERT FUNCTION
+========================= */
+
+function showAlert(message,type="success"){
+
+    const alert =
+    document.createElement("div");
+
+    alert.innerText = message;
+
+    alert.style.position = "fixed";
+    alert.style.top = "30px";
+    alert.style.right = "30px";
+
+    alert.style.padding = "16px 24px";
+
+    alert.style.borderRadius = "14px";
+
+    alert.style.color = "#fff";
+
+    alert.style.fontWeight = "600";
+
+    alert.style.zIndex = "9999";
+
+    if(type === "success"){
+
+        alert.style.background =
+        "linear-gradient(135deg,#1fae4b,#28d76a)";
+    }
+
+    else{
+
+        alert.style.background =
+        "linear-gradient(135deg,#d63031,#ff4d4f)";
+    }
+
+    document.body.appendChild(alert);
+
+    setTimeout(()=>{
+
+        alert.remove();
+
+    },3000);
+}
+
+/* =========================
+   LOGIN API
+========================= */
+
+const loginForm =
+document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", async(e)=>{
+
+    e.preventDefault();
+
+    const email =
+    document.getElementById("email").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    const loginBtn =
+    document.getElementById("loginBtn");
+
+    loginBtn.innerHTML =
+    '<div class="loader"></div>';
+
+    loginBtn.disabled = true;
+
+    try{
+
+        const response = await fetch(
+
+            "http://127.0.0.1:5000/admin/login",
+
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    email,
+                    password
+
+                })
+
+            }
+
+        );
+
+        const result =
+        await response.json();
+
+        if(result.success){
+
+            localStorage.setItem(
+                "token",
+                result.token
+            );
+
+            showAlert(
+                "Login Successful ✅",
+                "success"
+            );
+
+            setTimeout(()=>{
+
+                window.location.href =
+                "Deshboard.html";
+
+            },1000);
+
+        }
+
+        else{
+
+            showAlert(
+                result.message ||
+                "Invalid Email or Password ❌",
+                "error"
+            );
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showAlert(
+            "Backend Server Error 🚨",
+            "error"
+        );
+    }
+
+    finally{
+
+        loginBtn.innerHTML =
+        "LOGIN TO DASHBOARD";
+
+        loginBtn.disabled = false;
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
